@@ -1,0 +1,19 @@
+@layer utilities {
+  .c-text-balance {
+    text-wrap: balance;
+  }
+
+  /* Chrome, Safari and Opera */
+  .c-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .c-no-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .c-no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

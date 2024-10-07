@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/cn'
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
@@ -37,14 +37,14 @@ TableFooter.displayName = 'TableFooter'
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement> & {
-    noMouseEffect?: boolean
+    hasMouseEffect?: boolean
   }
->(({ noMouseEffect, className, ...props }, ref) => (
+>(({ hasMouseEffect, className, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
       '[&_td]:border-b [&_th]:border-b',
-      !noMouseEffect ? 'transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted' : '',
+      hasMouseEffect ? 'transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted' : '',
       className,
     )}
     {...props}

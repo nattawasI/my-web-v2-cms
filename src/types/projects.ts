@@ -4,7 +4,7 @@ export type ProjectItemType = {
   id: string
   title: string
   description: string
-  thumbnailImage: string
+  coverImage: string
   createDate: string
   status: ProjectStatusType
 }

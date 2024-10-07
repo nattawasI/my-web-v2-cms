@@ -1,4 +1,3 @@
-import { SearchInput } from '@/components/dashboard/common/search-input'
 import { Table } from '@/components/dashboard/projects/table'
 import type { Metadata } from 'next'
 
@@ -11,9 +10,7 @@ export default function ProjectsPage() {
   return (
     <div className="flex h-full flex-col gap-y-5 p-4 lg:p-6">
       <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
-      <div className="flex-1 overflow-hidden">
-        <Table />
-      </div>
+      <Table />
     </div>
   )
 }

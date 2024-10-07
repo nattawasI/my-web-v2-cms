@@ -2,7 +2,7 @@
 
 /** libs */
 import { useState, InputHTMLAttributes, forwardRef } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/cn'
 
 /** components */
 import { Input } from '@/components/ui/input'

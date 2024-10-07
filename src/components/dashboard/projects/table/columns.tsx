@@ -29,8 +29,8 @@ import type { ProjectItemType } from '@/types/projects'
 
 export const columns: ColumnDef<ProjectItemType>[] = [
   {
-    id: 'thumbnail-image',
-    accessorKey: 'thumbnailImage',
+    id: 'cover-image',
+    accessorKey: 'coverImage',
     header: '',
     meta: {
       className: 'w-[96px]',
@@ -39,7 +39,7 @@ export const columns: ColumnDef<ProjectItemType>[] = [
       return (
         <div className="relative h-16 w-16">
           <Image
-            src={row.original.thumbnailImage}
+            src={row.original.coverImage}
             fill
             alt={row.original.title}
             className="rounded-md object-cover object-center"

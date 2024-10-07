@@ -26,7 +26,7 @@ export default async function DashboardLayout({
       <Sidebar />
       <div className="overflow-hidden">
         <SmartPhoneHeader />
-        {children}
+        <div className="h-[calc(100%-3.5rem)] overflow-y-auto lg:h-full">{children}</div>
       </div>
     </div>
   )

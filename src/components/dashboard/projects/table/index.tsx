@@ -1,4 +1,4 @@
-import { DataTable } from '@/components/dashboard/common/data-table'
+import { DataTable } from '@/components/dashboard/projects/table/data-table'
 import { columns } from '@/components/dashboard/projects/table/columns'
 import { projects } from '@/components/dashboard/projects/table/data'
 

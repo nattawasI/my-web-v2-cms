@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/cn'
 
 const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
@@ -9,11 +9,19 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
 FormItem.displayName = 'FormItem'
 
-const FormItemLabel = React.forwardRef<HTMLLabelElement, React.LabelHTMLAttributes<HTMLLabelElement>>(
-  ({ className, ...props }, ref) => {
-    return <label ref={ref} className={cn('text-xs font-medium', className)} {...props} />
-  },
-)
+const FormItemLabel = React.forwardRef<
+  HTMLLabelElement,
+  React.LabelHTMLAttributes<HTMLLabelElement> & {
+    isRequired?: boolean
+  }
+>(({ isRequired, className, children, ...props }, ref) => {
+  return (
+    <label ref={ref} className={cn('text-xs font-medium', className)} {...props}>
+      {children}
+      {isRequired ? <span className="relative top-[-2px] ml-1 inline-block text-destructive">*</span> : null}
+    </label>
+  )
+})
 
 FormItemLabel.displayName = 'FormItemLabel'
 
