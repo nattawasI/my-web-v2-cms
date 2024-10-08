@@ -39,18 +39,13 @@ const CoverImage = ({ value, onValueChange }: Props) => {
         const uniqueFileName = generateUniqueFileName(file) // Generate the unique file name
 
         const { data, error } = await supabase.storage.from(BUCKET_NAME).upload(uniqueFileName, file)
-
         if (error) {
           console.error('Error upload image: ', error)
           return
         }
 
-        console.log('Uploaded data: ', data)
-        // Generate the public URL for the uploaded image
         const { data: publicUrlData } = supabase.storage.from(BUCKET_NAME).getPublicUrl(data.path)
 
-        console.log('publicUrl: ', publicUrlData)
-        // Update state with the public URL
         onValueChange?.({ path: data.path, publicUrl: publicUrlData.publicUrl })
       })
     }
