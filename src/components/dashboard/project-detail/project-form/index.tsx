@@ -2,6 +2,7 @@
 
 /** libs */
 import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm, Controller } from 'react-hook-form'
 import { createClient } from '@/utils/supabase/client'
 import { cn } from '@/lib/utils/cn'
@@ -15,12 +16,15 @@ import { LoaderCircle, ChevronLeft } from 'lucide-react'
 import { FormItem, FormItemLabel, FormItemMessage } from '@/components/ui/form-item'
 import { CoverImage } from '@/components/dashboard/project-detail/project-form/cover-image'
 import { StatusSelect } from '@/components/dashboard/project-detail/project-form/status-select'
+import { toast } from 'sonner'
 
 /** types */
 import type { ProjectFormType } from '@/types/dashboard/project-detail'
 
 const ProjectForm = () => {
   const supabase = createClient()
+
+  const router = useRouter()
 
   const [isSaving, startSave] = useTransition()
 
@@ -41,6 +45,7 @@ const ProjectForm = () => {
 
   const handleCreate = async (dataSubmit: ProjectFormType) => {
     console.log('dataSubmit: ', dataSubmit)
+
     // startSave(async () => {
     //   const { error } = await supabase.from('projects').insert({
     //     title: dataSubmit.title,
@@ -49,10 +54,17 @@ const ProjectForm = () => {
     //     cover_image: dataSubmit.coverImage,
     //     status: dataSubmit.status,
     //   })
+
     //   if (error) {
     //     console.error('Error insert project: ', error)
     //     return
     //   }
+
+    //   toast.success('Project has been created')
+
+    //   setTimeout(() => {
+    //     router.push('/dashboard/projects')
+    //   }, 300)
     // })
   }
 
