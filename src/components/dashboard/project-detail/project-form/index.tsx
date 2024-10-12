@@ -59,6 +59,8 @@ const ProjectForm = () => {
       }
 
       toast.success('Project has been created')
+
+      router.push('/dashboard/projects')
     })
   }
 
