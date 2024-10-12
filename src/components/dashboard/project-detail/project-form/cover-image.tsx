@@ -10,11 +10,11 @@ import { createClient } from '@/utils/supabase/client'
 import Image from 'next/image'
 
 /** types */
-import type { CoverImageType } from '@/types/dashboard/project-detail'
+import type { ProjectFormType } from '@/types/dashboard/project-detail'
 
 type Props = {
-  value?: CoverImageType | null
-  onValueChange?: (data: CoverImageType | null) => void
+  value?: ProjectFormType['coverImage']
+  onValueChange?: (data: ProjectFormType['coverImage']) => void
 }
 
 const BUCKET_NAME = 'projects'
@@ -84,7 +84,13 @@ const CoverImage = ({ value, onValueChange }: Props) => {
         <>
           {value?.publicUrl ? (
             <div className="relative h-full w-full overflow-hidden rounded-md">
-              <Image src={value.publicUrl} alt="Preview Cover Image" fill className="object-cover object-center" />
+              <Image
+                src={value.publicUrl}
+                alt="Preview Cover Image"
+                fill
+                sizes="100vw, (min-width: 768px) 720px"
+                className="object-cover object-center"
+              />
               <button
                 onClick={onRemove}
                 className="absolute right-3 top-3 z-[1] flex h-8 w-8 items-center justify-center rounded-full border border-accent bg-white shadow"

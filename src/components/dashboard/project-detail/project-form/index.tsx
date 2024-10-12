@@ -44,28 +44,22 @@ const ProjectForm = () => {
   })
 
   const handleCreate = async (dataSubmit: ProjectFormType) => {
-    console.log('dataSubmit: ', dataSubmit)
+    startSave(async () => {
+      const { error } = await supabase.from('projects').insert({
+        title: dataSubmit.title,
+        slug: dataSubmit.slug,
+        description: dataSubmit.description,
+        cover_image: dataSubmit.coverImage,
+        status: dataSubmit.status,
+      })
 
-    // startSave(async () => {
-    //   const { error } = await supabase.from('projects').insert({
-    //     title: dataSubmit.title,
-    //     slug: dataSubmit.slug,
-    //     description: dataSubmit.description,
-    //     cover_image: dataSubmit.coverImage,
-    //     status: dataSubmit.status,
-    //   })
+      if (error) {
+        console.error('Error insert project: ', error)
+        return
+      }
 
-    //   if (error) {
-    //     console.error('Error insert project: ', error)
-    //     return
-    //   }
-
-    //   toast.success('Project has been created')
-
-    //   setTimeout(() => {
-    //     router.push('/dashboard/projects')
-    //   }, 300)
-    // })
+      toast.success('Project has been created')
+    })
   }
 
   return (

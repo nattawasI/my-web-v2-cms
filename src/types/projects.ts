@@ -1,10 +1,9 @@
-export type ProjectStatusType = 'draft' | 'published'
-
 export type ProjectItemType = {
   id: string
   title: string
+  slug: string
   description: string
   coverImage: string
   createDate: string
-  status: ProjectStatusType
+  status: 'draft' | 'published'
 }

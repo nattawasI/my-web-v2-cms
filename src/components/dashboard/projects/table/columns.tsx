@@ -41,6 +41,7 @@ export const columns: ColumnDef<ProjectItemType>[] = [
           <Image
             src={row.original.coverImage}
             fill
+            sizes="64px"
             alt={row.original.title}
             className="rounded-md object-cover object-center"
           />
@@ -74,7 +75,7 @@ export const columns: ColumnDef<ProjectItemType>[] = [
   {
     id: 'actions',
     meta: {
-      className: 'w-[100px]',
+      className: 'w-[64px] sticky right-0 border-l border-border',
     },
     cell: ({ row }) => {
       const handleDelete = () => {
@@ -82,41 +83,39 @@ export const columns: ColumnDef<ProjectItemType>[] = [
       }
 
       return (
-        <div className="flex justify-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link href={`/projects/${row.original.id}`}>View Detail</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <DropdownMenuItem className="text-muted-foreground" onSelect={(e) => e.preventDefault()}>
-                    Delete
-                  </DropdownMenuItem>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      {`This action cannot be undone.\nThis will permanently delete your task.`}
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>Confirm</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-8 w-8 p-0 data-[state=open]:bg-accent">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/projects/${row.original.id}`}>View Detail</Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem className="text-muted-foreground" onSelect={(e) => e.preventDefault()}>
+                  Delete
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {`This action cannot be undone.\nThis will permanently delete your task.`}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>Confirm</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },

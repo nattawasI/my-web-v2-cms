@@ -2,6 +2,7 @@
 
 /** libs */
 import { useState } from 'react'
+import { cn } from '@/lib/utils/cn'
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 
 /** components */
@@ -78,7 +79,7 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead key={header.id} className={header.column.columnDef.meta?.className}>
+                        <TableHead key={header.id} className={cn(header.column.columnDef.meta?.className)}>
                           {flexRender(header.column.columnDef.header, header.getContext())}
                         </TableHead>
                       )
@@ -93,7 +94,7 @@ const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValu
                     return (
                       <TableRow key={row.id}>
                         {cells.map((cell) => (
-                          <TableCell key={cell.id}>
+                          <TableCell key={cell.id} className={cn(cell.column.columnDef.meta?.className)}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
                         ))}
