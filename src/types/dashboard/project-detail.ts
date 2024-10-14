@@ -6,5 +6,6 @@ export type ProjectFormType = {
     path: string
     publicUrl: string
   } | null
+  coverImageFile: File | null
   status: 'draft' | 'published'
 }

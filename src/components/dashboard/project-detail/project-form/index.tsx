@@ -18,6 +18,9 @@ import { CoverImage } from '@/components/dashboard/project-detail/project-form/c
 import { StatusSelect } from '@/components/dashboard/project-detail/project-form/status-select'
 import { toast } from 'sonner'
 
+/** actions */
+import { createProject } from '@/components/dashboard/project-detail/project-form/actions'
+
 /** types */
 import type { ProjectFormType } from '@/types/dashboard/project-detail'
 
@@ -38,6 +41,7 @@ const ProjectForm = () => {
       title: '',
       slug: '',
       description: '',
+      coverImageFile: null,
       coverImage: null,
       status: 'draft',
     },
@@ -45,22 +49,38 @@ const ProjectForm = () => {
 
   const handleCreate = async (dataSubmit: ProjectFormType) => {
     startSave(async () => {
-      const { error } = await supabase.from('projects').insert({
-        title: dataSubmit.title,
-        slug: dataSubmit.slug,
-        description: dataSubmit.description,
-        cover_image: dataSubmit.coverImage,
-        status: dataSubmit.status,
-      })
+      if (dataSubmit.coverImageFile) {
+        const path = `${dataSubmit.slug}/${dataSubmit.coverImageFile.name}`
+        const { data: dataCoverImage, error: errorCoverImage } = await supabase.storage
+          .from('projects')
+          .upload(path, dataSubmit.coverImageFile)
 
-      if (error) {
-        console.error('Error insert project: ', error)
-        return
+        if (errorCoverImage) {
+          console.error('Error upload Cover image: ', errorCoverImage)
+          return
+        }
+
+        const { data: dataPublicUrl } = supabase.storage.from('projects').getPublicUrl(dataCoverImage.path)
+
+        const { error: errorCreateProject } = await createProject({
+          title: dataSubmit.title,
+          slug: dataSubmit.slug,
+          description: dataSubmit.description,
+          coverImage: {
+            path: dataCoverImage.path,
+            publicUrl: dataPublicUrl.publicUrl,
+          },
+          status: dataSubmit.status,
+        })
+
+        if (errorCreateProject) {
+          console.error('Error create project: ', errorCreateProject)
+          return
+        }
+
+        toast.success('Project has been created')
+        router.push('/dashboard/projects')
       }
-
-      toast.success('Project has been created')
-
-      router.push('/dashboard/projects')
     })
   }
 
@@ -86,9 +106,11 @@ const ProjectForm = () => {
             <FormItemLabel>Cover Image</FormItemLabel>
             <Controller
               control={control}
-              name="coverImage"
-              render={({ field: { value, onChange } }) => <CoverImage value={value} onValueChange={onChange} />}
+              name="coverImageFile"
+              rules={{ required: 'Please upload Cover Image' }}
+              render={({ field: { onChange } }) => <CoverImage onValueChange={onChange} />}
             />
+            {errors.coverImageFile && <FormItemMessage isError>{errors.coverImageFile.message}</FormItemMessage>}
           </FormItem>
           <FormItem>
             <FormItemLabel>Content</FormItemLabel>

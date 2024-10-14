@@ -14,8 +14,6 @@ const Table = async () => {
 
   const { data, error } = await supabase.from('projects').select()
 
-  console.log('data: ', data)
-
   if (error) {
     console.error('Error fetching projects: ', error)
     return <p className="py-10 text-center text-destructive">There is something error</p>
@@ -33,7 +31,7 @@ const Table = async () => {
       }))
     : []
 
-  return <DataTable columns={columns} data={projects} />
+  return <DataTable data={projects} />
 }
 
 export { Table }
