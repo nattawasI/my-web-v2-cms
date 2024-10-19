@@ -48,40 +48,35 @@ const ProjectForm = () => {
   })
 
   const handleCreate = async (dataSubmit: ProjectFormType) => {
-    startSave(async () => {
-      if (dataSubmit.coverImageFile) {
-        const path = `${dataSubmit.slug}/${dataSubmit.coverImageFile.name}`
-        const { data: dataCoverImage, error: errorCoverImage } = await supabase.storage
-          .from('projects')
-          .upload(path, dataSubmit.coverImageFile)
-
-        if (errorCoverImage) {
-          console.error('Error upload Cover image: ', errorCoverImage)
-          return
-        }
-
-        const { data: dataPublicUrl } = supabase.storage.from('projects').getPublicUrl(dataCoverImage.path)
-
-        const { error: errorCreateProject } = await createProject({
-          title: dataSubmit.title,
-          slug: dataSubmit.slug,
-          description: dataSubmit.description,
-          coverImage: {
-            path: dataCoverImage.path,
-            publicUrl: dataPublicUrl.publicUrl,
-          },
-          status: dataSubmit.status,
-        })
-
-        if (errorCreateProject) {
-          console.error('Error create project: ', errorCreateProject)
-          return
-        }
-
-        toast.success('Project has been created')
-        router.push('/dashboard/projects')
-      }
-    })
+    // startSave(async () => {
+    //   if (dataSubmit.coverImageFile) {
+    //     const path = `${dataSubmit.slug}/${dataSubmit.coverImageFile.name}`
+    //     const { data: dataCoverImage, error: errorCoverImage } = await supabase.storage
+    //       .from('projects')
+    //       .upload(path, dataSubmit.coverImageFile)
+    //     if (errorCoverImage) {
+    //       console.error('Error upload Cover image: ', errorCoverImage)
+    //       return
+    //     }
+    //     const { data: dataPublicUrl } = supabase.storage.from('projects').getPublicUrl(dataCoverImage.path)
+    //     const { error: errorCreateProject } = await createProject({
+    //       title: dataSubmit.title,
+    //       slug: dataSubmit.slug,
+    //       description: dataSubmit.description,
+    //       coverImage: {
+    //         path: dataCoverImage.path,
+    //         publicUrl: dataPublicUrl.publicUrl,
+    //       },
+    //       status: dataSubmit.status,
+    //     })
+    //     if (errorCreateProject) {
+    //       console.error('Error create project: ', errorCreateProject)
+    //       return
+    //     }
+    //     toast.success('Project has been created')
+    //     router.push('/dashboard/projects')
+    //   }
+    // })
   }
 
   return (
