@@ -88,7 +88,6 @@ const CoverImage = ({ onValueChange, publicUrl }: Props) => {
               fill
               sizes="100vw, (min-width: 768px) 720px"
               className="object-cover object-center"
-              // className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <button
               onClick={onRemove}
@@ -106,7 +105,7 @@ const CoverImage = ({ onValueChange, publicUrl }: Props) => {
             })}
           >
             <input {...getInputProps({ className: 'absolute top-0 left-0 w-0 h-0' })} />
-            <p>Click to select a JPEG image</p>
+            <p className="p-6">Click to select a JPEG image</p>
           </div>
         )}
       </>

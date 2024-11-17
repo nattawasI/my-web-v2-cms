@@ -5,7 +5,7 @@ import { ProjectForm } from '@/components/dashboard/project-detail/project-form'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'New Project',
+  title: 'Create new project',
 }
 
 export default function NewProjectPage() {

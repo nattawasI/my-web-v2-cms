@@ -47,6 +47,10 @@ const ProjectForm = () => {
     },
   })
 
+  const handleBack = () => {
+    router.push('/dashboard/projects')
+  }
+
   const handleCreate = async (dataSubmit: ProjectFormType) => {
     // startSave(async () => {
     //   if (dataSubmit.coverImageFile) {
@@ -80,8 +84,20 @@ const ProjectForm = () => {
   }
 
   return (
-    <div className="">
-      <div className={cn('mx-auto w-full max-w-[768px] px-6 py-10', isSaving ? 'pointer-events-none' : undefined)}>
+    <div>
+      <div
+        className={cn(
+          'mx-auto flex w-full max-w-[768px] flex-col gap-y-6 px-6 py-10',
+          isSaving ? 'pointer-events-none' : undefined,
+        )}
+      >
+        <div className="flex items-center gap-x-6">
+          <Button variant="outline" size="icon" onClick={handleBack}>
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-2xl font-bold">Create new project</h1>
+        </div>
+
         <div className="flex flex-col gap-6">
           <FormItem>
             <FormItemLabel isRequired>Title</FormItemLabel>
@@ -112,12 +128,8 @@ const ProjectForm = () => {
             <div className="min-h-[300px] rounded-lg border border-border"></div>
           </FormItem>
         </div>
-      </div>
-      <div className="sticky bottom-0 z-10 border-t border-border bg-background py-2">
-        <div className="mx-auto flex w-full max-w-[768px] justify-between px-6">
-          <Link href="/dashboard/projects" className={buttonVariants({ variant: 'outline', size: 'icon' })}>
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
+        <div className="flex justify-between gap-x-6">
+          <Button variant="outline">Discard</Button>
           <div className="flex items-center gap-x-2">
             <Controller
               control={control}
