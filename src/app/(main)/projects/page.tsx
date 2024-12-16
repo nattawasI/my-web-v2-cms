@@ -1,15 +1,16 @@
-import Link from 'next/link'
+import { Table } from '@/components/projects/table'
+import type { Metadata } from 'next'
 
-import { articles } from './data'
+export const metadata: Metadata = {
+  title: 'Projects',
+  description: '',
+}
 
-export default function Articles() {
+export default function ProjectsPage() {
   return (
     <div className="flex h-full flex-col gap-y-5 p-4 lg:p-6">
-      {articles.map((item) => (
-        <div key={item.slug}>
-          <Link href={`/articles/${item.slug}`}>{item.title}</Link>
-        </div>
-      ))}
+      <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
+      <Table />
     </div>
   )
 }

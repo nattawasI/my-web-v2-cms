@@ -1,21 +1,19 @@
-import { articles } from '../data'
+/** types */
+import type { Metadata } from 'next'
 
-type Props = {
-  params: { slug: string }
+export const metadata: Metadata = {
+  title: 'Project Detail',
+  description: '',
 }
 
-export async function generateStaticParams() {
-  return articles.map((item) => ({
-    slug: item.slug,
-  }))
-}
-
-export default function ArticleDetail({ params }: Props) {
-  const article = articles.find((item) => item.slug === params.slug)
+export default function TasksDetailPage({ params }: { params: { slug: string } }) {
   return (
-    <div className="flex h-full flex-col gap-y-5 p-4 lg:p-6">
-      <h1>{article?.title}</h1>
-      <p>{article?.content}</p>
+    <div className="h-full p-4 lg:p-6">
+      <div className="max-auto container">
+        <h1 className="text-2xl font-semibold tracking-tight">Title</h1>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">Description</p>
+        <p className="text-2xl font-semibold tracking-tight">Task not found</p>
+      </div>
     </div>
   )
 }
