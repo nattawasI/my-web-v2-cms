@@ -8,10 +8,9 @@ import { createClient } from '@/utils/supabase/client'
 import { cn } from '@/lib/utils/cn'
 
 /** components */
-import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { LoaderCircle, ChevronLeft } from 'lucide-react'
 import { FormItem, FormItemLabel, FormItemMessage } from '@/components/ui/form-item'
 import { CoverImage } from '@/components/project-detail/project-form/cover-image'
@@ -41,8 +40,9 @@ const ProjectForm = () => {
       title: '',
       slug: '',
       description: '',
-      coverImageFile: null,
-      coverImage: null,
+      cover_image_path: '',
+      cover_image_publicUrl: '',
+      cover_image_file: null,
       status: 'draft',
     },
   })
@@ -52,35 +52,33 @@ const ProjectForm = () => {
   }
 
   const handleCreate = async (dataSubmit: ProjectFormType) => {
-    // startSave(async () => {
-    //   if (dataSubmit.coverImageFile) {
-    //     const path = `${dataSubmit.slug}/${dataSubmit.coverImageFile.name}`
-    //     const { data: dataCoverImage, error: errorCoverImage } = await supabase.storage
-    //       .from('projects')
-    //       .upload(path, dataSubmit.coverImageFile)
-    //     if (errorCoverImage) {
-    //       console.error('Error upload Cover image: ', errorCoverImage)
-    //       return
-    //     }
-    //     const { data: dataPublicUrl } = supabase.storage.from('projects').getPublicUrl(dataCoverImage.path)
-    //     const { error: errorCreateProject } = await createProject({
-    //       title: dataSubmit.title,
-    //       slug: dataSubmit.slug,
-    //       description: dataSubmit.description,
-    //       coverImage: {
-    //         path: dataCoverImage.path,
-    //         publicUrl: dataPublicUrl.publicUrl,
-    //       },
-    //       status: dataSubmit.status,
-    //     })
-    //     if (errorCreateProject) {
-    //       console.error('Error create project: ', errorCreateProject)
-    //       return
-    //     }
-    //     toast.success('Project has been created')
-    //     router.push('/projects')
-    //   }
-    // })
+    startSave(async () => {
+      if (dataSubmit.cover_image_file) {
+        const path = `${dataSubmit.slug}/${dataSubmit.cover_image_file.name}`
+        const { data: dataCoverImage, error: errorCoverImage } = await supabase.storage
+          .from('projects')
+          .upload(path, dataSubmit.cover_image_file)
+        if (errorCoverImage) {
+          console.error('Error upload Cover image: ', errorCoverImage)
+          return
+        }
+        const { data: dataPublicUrl } = supabase.storage.from('projects').getPublicUrl(dataCoverImage.path)
+        const { error: errorCreateProject } = await createProject({
+          title: dataSubmit.title,
+          slug: dataSubmit.slug,
+          description: dataSubmit.description,
+          cover_image_path: dataCoverImage.path,
+          cover_image_publicUrl: dataPublicUrl.publicUrl,
+          status: dataSubmit.status,
+        })
+        if (errorCreateProject) {
+          console.error('Error create project: ', errorCreateProject)
+          return
+        }
+        toast.success('Project has been created')
+        router.push('/projects')
+      }
+    })
   }
 
   return (
@@ -117,11 +115,11 @@ const ProjectForm = () => {
             <FormItemLabel>Cover Image</FormItemLabel>
             <Controller
               control={control}
-              name="coverImageFile"
+              name="cover_image_file"
               rules={{ required: 'Please upload Cover Image' }}
               render={({ field: { onChange } }) => <CoverImage onValueChange={onChange} />}
             />
-            {errors.coverImageFile && <FormItemMessage isError>{errors.coverImageFile.message}</FormItemMessage>}
+            {errors.cover_image_file && <FormItemMessage isError>{errors.cover_image_file.message}</FormItemMessage>}
           </FormItem>
           <FormItem>
             <FormItemLabel>Content</FormItemLabel>

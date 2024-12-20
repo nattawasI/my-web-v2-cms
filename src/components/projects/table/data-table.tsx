@@ -3,6 +3,7 @@
 /** libs */
 import { useState } from 'react'
 import { cn } from '@/lib/utils/cn'
+import { format } from 'date-fns'
 
 /** components */
 import Link from 'next/link'
@@ -70,19 +71,19 @@ const DataTable = ({ data }: DataTableProps) => {
                     {data.map((item) => (
                       <TableRow key={item.id}>
                         <TableCell>
-                          <div className="relative h-16 w-16">
-                            <Image
-                              src={item.coverImage}
+                          <div className="relative h-16 w-16 bg-secondary">
+                            {/* <Image
+                              src={item.cover_image?.publicUrl as string}
                               fill
                               sizes="64px"
-                              alt={item.title}
+                              alt={item.title as string}
                               className="rounded-md object-cover object-center"
-                            />
+                            /> */}
                           </div>
                         </TableCell>
                         <TableCell>{item.title}</TableCell>
                         <TableCell>{item.description}</TableCell>
-                        <TableCell>{item.createDate}</TableCell>
+                        <TableCell>{format(item.created_at, 'dd/MM/yyyy')}</TableCell>
                         <TableCell>
                           <Badge variant={item.status === 'draft' ? 'secondary' : 'default'} className="capitalize">
                             {item.status}

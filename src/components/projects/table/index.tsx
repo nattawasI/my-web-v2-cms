@@ -1,37 +1,20 @@
 /** libs */
 import { createClient } from '@/utils/supabase/server'
-import { format } from 'date-fns'
 
 /** components */
+import { ErrorFetchText } from '@/components/common/error-fetch-text'
 import { DataTable } from '@/components/projects/table/data-table'
-import { columns } from '@/components/projects/table/columns'
-
-/** types */
-import type { ProjectItemType } from '@/types/projects'
 
 const Table = async () => {
   const supabase = createClient()
-
   const { data, error } = await supabase.from('projects').select()
 
   if (error) {
     console.error('Error fetching projects: ', error)
-    return <p className="py-10 text-center text-destructive">There is something error</p>
+    return <ErrorFetchText />
   }
 
-  const projects: ProjectItemType[] = data
-    ? data.map((item) => ({
-        id: item.id,
-        title: item.title,
-        slug: item.slug,
-        description: item.description,
-        coverImage: item.cover_image.publicUrl,
-        createDate: format(item.created_at, 'dd/MM/yyyy'),
-        status: item.status,
-      }))
-    : []
-
-  return <DataTable data={projects} />
+  return <DataTable data={data} />
 }
 
 export { Table }

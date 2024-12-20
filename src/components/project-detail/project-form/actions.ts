@@ -5,21 +5,13 @@ import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 /** types */
-import type { ProjectFormType } from '@/types/project-detail'
+import type { ProjectFieldType } from '@/types/project-detail'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 
-export const createProject = async (
-  dataSubmit: Omit<ProjectFormType, 'coverImageFile'>,
-): Promise<PostgrestSingleResponse<null>> => {
+export const createProject = async (dataSubmit: ProjectFieldType): Promise<PostgrestSingleResponse<null>> => {
   const supabase = createClient()
 
-  const response = await supabase.from('projects').insert({
-    title: dataSubmit.title,
-    slug: dataSubmit.slug,
-    description: dataSubmit.description,
-    cover_image: dataSubmit.coverImage,
-    status: dataSubmit.status,
-  })
+  const response = await supabase.from('projects').insert(dataSubmit)
 
   if (!response.error) {
     revalidatePath('/projects')
