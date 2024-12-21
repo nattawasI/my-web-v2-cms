@@ -1,6 +1,7 @@
 'use client'
 
 /** libs */
+import { useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -16,6 +17,8 @@ import { SignOut } from '@/components/common/signout'
 const SmartPhoneMenu = () => {
   const pathname = usePathname()
 
+  const navItemsRef = useRef<HTMLAnchorElement[]>([])
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -23,7 +26,13 @@ const SmartPhoneMenu = () => {
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent
+        side="left"
+        onOpenAutoFocus={(e) => {
+          e.preventDefault()
+          navItemsRef.current[0].focus()
+        }}
+      >
         <VisuallyHidden.Root>
           <SheetHeader>
             <SheetTitle>Global Menu</SheetTitle>
@@ -38,6 +47,11 @@ const SmartPhoneMenu = () => {
                 href={item.href}
                 className={gnavMenuLinkClassName()}
                 data-current={item.href === pathname}
+                ref={(el) => {
+                  if (el) {
+                    navItemsRef.current[index] = el
+                  }
+                }}
               >
                 {item.icon}
                 {item.label}
