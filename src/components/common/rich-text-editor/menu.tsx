@@ -20,6 +20,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { MenuButtonWithTooltip } from './menu-button-with-tooltip'
 import { MenuPopover } from './menu-popover'
 import { LinkPopover } from './link-popover'
+import { ImagePopover } from './image-popover'
 
 /** types */
 import type { Editor } from '@tiptap/react'
@@ -116,13 +117,13 @@ const Menu = ({ editor }: { editor: Editor }) => {
                 </MenuButtonWithTooltip>
               ) : null}
               {item.type === 'image' ? (
-                <MenuPopover
-                  triggerSlot={
+                <ImagePopover
+                  editor={editor}
+                  trigger={
                     <MenuButtonWithTooltip editor={editor} data={item}>
                       {item.icon}
                     </MenuButtonWithTooltip>
                   }
-                  contentSlot={<div>Content</div>}
                 />
               ) : null}
               {item.type === 'link' ? (

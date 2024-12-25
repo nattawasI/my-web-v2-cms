@@ -37,7 +37,7 @@ const FormContent = ({ editor, onClose }: { editor: Editor; onClose: () => void 
   return (
     <form onSubmit={handleSubmit}>
       <Input name="url" placeholder="Add URL" value={value} onChange={(e) => setValue(e.target.value)} />
-      <Button type="submit" size="sm" className="mt-4 w-full">
+      <Button type="submit" className="mt-4 w-full">
         Add
       </Button>
     </form>
