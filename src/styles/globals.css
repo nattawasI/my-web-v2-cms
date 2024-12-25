@@ -9,3 +9,6 @@
 /** utilities */
 @import 'tailwindcss/utilities';
 @import url('./utilities/index.css');
+
+/** libs */
+@import url('./tiptap.css');

@@ -16,7 +16,6 @@ import { SignOut } from '@/components/common/signout'
 
 const SmartPhoneMenu = () => {
   const pathname = usePathname()
-
   const navItemsRef = useRef<HTMLAnchorElement[]>([])
 
   return (

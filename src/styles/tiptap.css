@@ -1,0 +1,10 @@
+.tiptap:focus {
+  @apply outline-none;
+}
+
+.tiptap p.is-empty::before,
+.tiptap h2.is-empty::before,
+.tiptap h3.is-empty::before,
+.tiptap h4.is-empty::before {
+  @apply pointer-events-none float-left h-0 text-muted-foreground/50 content-[attr(data-placeholder)];
+}

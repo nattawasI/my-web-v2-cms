@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic'
 import type { Metadata } from 'next'
-const Tiptap = dynamic(() => import('@/components/common/tiptap').then((mod) => mod.Tiptap), { ssr: false })
+const RichTextEditor = dynamic(() => import('@/components/common/rich-text-editor').then((mod) => mod.RichTextEditor), {
+  ssr: false,
+})
 
 export const metadata: Metadata = {
   title: 'Test Tiptap',
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 export default function TestTiptapPage() {
   return (
     <div className="flex h-full flex-col gap-y-5 p-4 lg:p-6">
-      <Tiptap />
+      <RichTextEditor />
     </div>
   )
 }
