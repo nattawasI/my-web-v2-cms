@@ -1,15 +1,21 @@
-import { FormEvent, useState, ReactElement } from 'react'
+import { FormEvent, useState, ComponentPropsWithoutRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import type { Editor } from '@tiptap/react'
+import { MenuButtonWithTooltip, type MenuButtonWithTooltipProps } from './menu-button-with-tooltip'
 
-const LinkPopover = ({ editor, trigger }: { editor: Editor; trigger: ReactElement }) => {
+type Props = Pick<MenuButtonWithTooltipProps, 'editor' | 'data'>
+
+const LinkPopover = ({ editor, data }: Props) => {
   const [open, setOpen] = useState<boolean>(false)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+      <PopoverTrigger asChild>
+        <MenuButtonWithTooltip editor={editor} data={data}>
+          {data.icon}
+        </MenuButtonWithTooltip>
+      </PopoverTrigger>
       <PopoverContent>
         <FormContent editor={editor} onClose={() => setOpen(false)} />
       </PopoverContent>
@@ -17,7 +23,7 @@ const LinkPopover = ({ editor, trigger }: { editor: Editor; trigger: ReactElemen
   )
 }
 
-const FormContent = ({ editor, onClose }: { editor: Editor; onClose: () => void }) => {
+const FormContent = ({ editor, onClose }: { onClose: () => void } & Pick<Props, 'editor'>) => {
   const { href } = editor.getAttributes('link')
 
   const [value, setValue] = useState<string>(href ?? '')

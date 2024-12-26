@@ -18,9 +18,8 @@ import {
 } from 'lucide-react'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { MenuButtonWithTooltip } from './menu-button-with-tooltip'
-import { MenuPopover } from './menu-popover'
 import { LinkPopover } from './link-popover'
-import { ImagePopover } from './image-popover'
+import { ImageButton } from './image-button'
 
 /** types */
 import type { Editor } from '@tiptap/react'
@@ -116,26 +115,8 @@ const Menu = ({ editor }: { editor: Editor }) => {
                   {item.icon}
                 </MenuButtonWithTooltip>
               ) : null}
-              {item.type === 'image' ? (
-                <ImagePopover
-                  editor={editor}
-                  trigger={
-                    <MenuButtonWithTooltip editor={editor} data={item}>
-                      {item.icon}
-                    </MenuButtonWithTooltip>
-                  }
-                />
-              ) : null}
-              {item.type === 'link' ? (
-                <LinkPopover
-                  editor={editor}
-                  trigger={
-                    <MenuButtonWithTooltip editor={editor} data={item}>
-                      {item.icon}
-                    </MenuButtonWithTooltip>
-                  }
-                />
-              ) : null}
+              {item.type === 'image' ? <ImageButton editor={editor} data={item} /> : null}
+              {item.type === 'link' ? <LinkPopover editor={editor} data={item} /> : null}
             </Fragment>
           )
         })}

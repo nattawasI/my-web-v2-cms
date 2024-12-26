@@ -5,9 +5,9 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import type { Editor } from '@tiptap/react'
 import type { MenuItemType } from './menu'
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & { data: MenuItemType } & { editor: Editor }
+type MenuButtonWithTooltipProps = ButtonHTMLAttributes<HTMLButtonElement> & { data: MenuItemType } & { editor: Editor }
 
-const MenuButtonWithTooltip = forwardRef<HTMLButtonElement, Props>(
+const MenuButtonWithTooltip = forwardRef<HTMLButtonElement, MenuButtonWithTooltipProps>(
   ({ editor, data, className, children, onClick, ...props }, ref) => {
     return (
       <Tooltip>
@@ -38,4 +38,4 @@ const MenuButtonWithTooltip = forwardRef<HTMLButtonElement, Props>(
 
 MenuButtonWithTooltip.displayName = 'MenuButtonWithTooltip'
 
-export { MenuButtonWithTooltip }
+export { MenuButtonWithTooltip, type MenuButtonWithTooltipProps }

@@ -8,3 +8,7 @@
 .tiptap h4.is-empty::before {
   @apply pointer-events-none float-left h-0 text-muted-foreground/50 content-[attr(data-placeholder)];
 }
+
+.tiptap img.ProseMirror-selectednode {
+  @apply outline-none ring-2 ring-ring ring-offset-2;
+}
